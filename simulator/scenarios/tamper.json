@@ -1,0 +1,7 @@
+{
+  "description": "Sealed lock whose rod is cut 10 s after connecting; then an emergency alarm location report.",
+  "steps": [
+    { "at": 10, "action": "tamper" },
+    { "at": 20, "action": "emergency_alarm" }
+  ]
+}

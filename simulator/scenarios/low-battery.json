@@ -1,0 +1,7 @@
+{
+  "description": "Battery drops to the critical voltage code (0x30) after 10 s; a Seal attempted afterwards returns 0x83.",
+  "steps": [
+    { "at": 10, "action": "low_battery" },
+    { "at": 12, "action": "lock_upload", "subCmd": 1 }
+  ]
+}

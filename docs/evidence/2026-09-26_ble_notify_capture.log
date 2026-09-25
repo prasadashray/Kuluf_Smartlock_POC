@@ -1,0 +1,21 @@
+# BLE passive capture - TT ELOCK sample (advertised name 82637294, MAC DD:78:A9:81:04:A4)
+# Tool: tools/ble/ble_gatt.py + tools/ble/ble_listen.py (read-only; subscribes to notify char 00000003-0000-1000-8000-00805f9b34fb; never writes)
+# Host: Windows 11, Intel Wireless Bluetooth, Python bleak. Host timezone IST (UTC+05:30).
+# Format: <host receive time (UTC)> <frame hex>
+2026-09-25T19:16:33Z 010e0120471c7e3750fd26092603154067
+2026-09-25T19:16:46Z 010e0120471c7e3750fd26092603154385
+2026-09-25T19:18:03.670618Z 010e0120471c7e3750fd260926031741a8
+2026-09-25T19:18:14.393511Z 010e0120471c7e3750fd26092603174497
+2026-09-25T19:18:34.089451Z 010e0120471c7e3750fd26092603174775
+# (first two lines: host time recorded in IST 00:46:33 / 00:46:46 and converted to UTC here)
+#
+# GATT database (read-only enumeration):
+#   0x1800 GAP: 2A00 Device Name = "TT_LOCK7" (read,write) ; 2A01 Appearance = c203 ; 2A04 PPCP = 0600060030006400
+#   0x1801 GATT: 2A05 Service Changed
+#   0x0001 (vendor, UART-like): 0x0002 write ; 0x0003 notify
+#   0xFF00 (vendor): 0xFF01 read/write/write-without-response, value 0000
+# Advertisement: local name "82637294", service UUID 00000001-0000-1000-8000-00805f9b34fb,
+#   manufacturer data company 0x7A68 payload a40481a978dd (= MAC address byte-reversed)
+#
+# Checksum analysis (tools/ble/crc_hunt.py): last byte = CRC-8/MAXIM (poly 0x31 reflected, init 0x00, xorout 0x00)
+#   over bytes [0 .. n-2]. Unique match among ~8,000 CRC-8/sum/xor variants, 5/5 frames.

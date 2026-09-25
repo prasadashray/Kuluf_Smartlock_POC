@@ -1,0 +1,19 @@
+{
+  "name": "@indialock/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "migrate": "node src/db/migrate.js",
+    "test": "node --test --test-reporter=spec --test-timeout=30000 --test-force-exit --test-concurrency=1 \"tests/unit/**/*.test.js\" \"tests/integration/**/*.test.js\"",
+    "test:unit": "node --test --test-reporter=spec --test-timeout=30000 \"tests/unit/**/*.test.js\"",
+    "test:integration": "node --test --test-reporter=spec --test-timeout=30000 --test-force-exit --test-concurrency=1 \"tests/integration/**/*.test.js\"",
+    "test:e2e": "node --test --test-reporter=spec --test-timeout=60000 --test-force-exit \"tests/e2e/**/*.test.js\""
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  }
+}

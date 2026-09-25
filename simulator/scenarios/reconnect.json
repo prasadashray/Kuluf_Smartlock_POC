@@ -1,0 +1,7 @@
+{
+  "description": "Drop the TCP connection after 15 s (use with a restart loop to test reconnect handling).",
+  "steps": [
+    { "at": 5, "action": "location" },
+    { "at": 15, "action": "disconnect" }
+  ]
+}

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+!docs/evidence/*.log
+captures/
+coverage/
+.vite/
+__pycache__/
+.DS_Store
+Thumbs.db
+~$*
+*.tmp

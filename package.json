@@ -1,0 +1,23 @@
+{
+  "name": "indialock-connect-poc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "IndiaLock Connect POC - TT808ELOCK (JT/T808 A13) TCP platform, simulator and dashboard",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "dashboard"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "npm test --workspace server",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose stop db",
+    "migrate": "npm run migrate --workspace server",
+    "server": "npm start --workspace server",
+    "simulator": "node simulator/simulate-device.js",
+    "dashboard": "npm run dev --workspace dashboard"
+  }
+}

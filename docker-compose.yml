@@ -1,0 +1,66 @@
+# Local environment. `docker compose up -d db` for development (server/dashboard run natively),
+# or `docker compose --profile full up --build` for database + server + dashboard + simulator in containers.
+# Distinct project name: another compose project called "indialock-connect-poc" exists on the dev machine
+# (C:\Users\SmartSkale\Desktop\SSLockPOC) and must not be touched.
+name: kuluf-smartlock-poc
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-indialock}
+      POSTGRES_USER: ${POSTGRES_USER:-indialock}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  server:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-indialock}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-indialock}
+      API_HOST: 0.0.0.0
+      CAPTURE_FILE: /captures/traffic.jsonl
+    ports:
+      - "${TCP_PORT:-6808}:${TCP_PORT:-6808}"          # device port: the only port meant to be public
+      - "127.0.0.1:${API_PORT:-3000}:${API_PORT:-3000}"
+    volumes:
+      - ./captures:/captures
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dashboard:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: dashboard/Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - server
+
+  simulator:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    command: ["node", "/app/simulator/simulate-device.js", "--host", "server", "--port", "${TCP_PORT:-6808}", "--heartbeat", "30", "--location-interval", "20", "--lock-upload-interval", "60", "--simulate-location", "--device-id", "000099990001", "--lock-id", "99990001"]
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  pgdata:
