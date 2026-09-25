@@ -70,8 +70,10 @@ path stays primary. Details: `docs/ARCHITECTURE.md`, `docs/DECISIONS.md` (D-01, 
 `tools/ble/`, `captures/` (raw traffic evidence, git-ignored).
 
 ## 10. Exact first actions when you resume
+Remote: `origin` = https://github.com/prasadashray/Kuluf_Smartlock_POC.git (branch `main`).
 ```bash
 git -C /c/Users/SmartSkale/Desktop/Kuluf_Smartlock_POC log --oneline -3   # confirm the checkpoint commit
+git -C /c/Users/SmartSkale/Desktop/Kuluf_Smartlock_POC remote -v          # confirm origin = the GitHub repo
 docker ps | grep kuluf                                                     # is the db up?
 docker compose up -d db                                                    # if not
 npm --prefix server test                                                   # expect 99 pass (unit+integration)

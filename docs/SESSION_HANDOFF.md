@@ -2,6 +2,11 @@
 
 Date: 2026-09-26. This records exactly where work stopped so the next agent can resume without the chat history.
 
+Repository / GitHub: branch `main`, remote `origin` = https://github.com/prasadashray/Kuluf_Smartlock_POC.git. The
+project has been pushed to GitHub (this checkpoint). Local and remote `main` are in sync; the codebase is unchanged
+since the last green test run (99 unit+integration + 4 PostgreSQL e2e). No source code changed in this checkpoint —
+only handoff docs were refreshed.
+
 ## Where the previous agent stopped
 Finished building the full POC against the simulator (protocol, server, DB, API, dashboard, tests), investigated the
 vendor Gitee reference, ran a read-only BLE session against the physical lock, produced the vendor question set as

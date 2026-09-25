@@ -1,6 +1,8 @@
 # Project State
 
 Snapshot date: 2026-09-26. Verify against the repository (`docs/AGENT_START_HERE.md` §13).
+Version control: git branch `main`, remote `origin` = https://github.com/prasadashray/Kuluf_Smartlock_POC.git
+(first GitHub push this checkpoint). Tests re-verified before push: 99 unit+integration pass, 4 PostgreSQL e2e pass.
 Labels: CONFIRMED / INFERRED / UNKNOWN / HARDWARE-SPECIFIC / REQUIRES VENDOR CONFIRMATION / REQUIRES HARDWARE TEST.
 
 ## Project name
